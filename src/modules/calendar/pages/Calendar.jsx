@@ -1,7 +1,10 @@
 import {useState} from 'react'
+import ReminderDialogForm from '../components/ReminderDialogForm.jsx'
 
 function Calendar() {
-  const [reminders, setReminder] = useState([])
+  let [reminders, setReminder] = useState([])
+  let [dateId, setDateId] = useState('')
+
   const currentMonth = new Date().getMonth()
   const totalDaysInMonth = new Date(2022, currentMonth + 1, 0).getDate()
   const remainingDays = 6 - new Date(2022, currentMonth, totalDaysInMonth).getDay()
@@ -10,10 +13,13 @@ function Calendar() {
   const diff = 0 - (new Date(2022, currentMonth, 1).getDay()) + 1
   const weeks = []
 
-  const selectDate = (date) => {
-    const message = prompt('Qual lembre voce quer salvar?')
-    setReminder([...reminders, {date, message}])
-    console.log(reminders)
+  const saveReminder = (reminder) => {
+    setReminder([...reminders, {
+      date: dateId,
+      ...reminder,
+    }])
+
+    setDateId('')
   }
 
   for(let i = diff; i <= totalDays; i ++) {
@@ -36,7 +42,7 @@ function Calendar() {
 
         return (
           <>
-            <span className="date-item" onClick={() => selectDate(w.date)}>
+            <span className="date-item" onClick={() => setDateId(w.date)}>
               {w.day}
               {messages.length ? messages.map(({message}) => 
                 <span className="date-item-reminder">{message}</span>)
@@ -46,6 +52,12 @@ function Calendar() {
           </>
         )
       })}
+
+      <ReminderDialogForm 
+        isOpen={dateId !== ''}
+        close={() => setDateId('')}
+        submit={saveReminder}
+      />
     </div>
   )
 }
