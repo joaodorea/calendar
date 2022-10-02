@@ -1,8 +1,10 @@
-import {useState} from 'react'
+import { useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 import ReminderDialogForm from '../components/ReminderDialogForm.jsx'
 
 function Calendar() {
-  let [reminders, setReminder] = useState([])
+  let [reminders, setReminderList] = useState([])
+  let [editingReminder, setEditingReminder] = useState(null)
   let [dateId, setDateId] = useState('')
 
   const currentMonth = new Date().getMonth()
@@ -14,12 +16,21 @@ function Calendar() {
   const weeks = []
 
   const saveReminder = (reminder) => {
-    setReminder([...reminders, {
+    setReminderList([...reminders, {
+      id: uuidv4(),
       date: dateId,
       ...reminder,
     }])
 
     setDateId('')
+  }
+
+  const editReminder = (reminder) => {
+    const reminderList = reminders.filter((r) => r.id !== reminder.id)
+    reminderList.push(reminder)
+
+    setReminderList(reminderList)
+    setEditingReminder(null)
   }
 
   for(let i = diff; i <= totalDays; i ++) {
@@ -49,8 +60,8 @@ function Calendar() {
               </div>
 
               <div className="reminder-list">
-                {messages.length ? messages.map(({message}) => 
-                  <span className="date-item-reminder">{message}</span>)
+                {Boolean(messages.length) ? messages.map((reminder) => 
+                  <span onClick={() => setEditingReminder(reminder)} className="date-item-reminder">{reminder.message}</span>)
                 : null}
               </div>
             </span>
@@ -58,11 +69,20 @@ function Calendar() {
         })}
       </div>
 
-      <ReminderDialogForm 
-        isOpen={dateId !== ''}
-        close={() => setDateId('')}
-        submit={saveReminder}
-      />
+      {Boolean(dateId) && 
+        <ReminderDialogForm 
+          close={() => setDateId('')}
+          submit={saveReminder}
+        />
+      }
+
+      {Boolean(editingReminder) && 
+        <ReminderDialogForm 
+          close={() => setEditingReminder(null)}
+          submit={editReminder}
+          reminder={editingReminder}
+        />
+      }
     </div>
   )
 }

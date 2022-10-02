@@ -1,31 +1,44 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Dialog } from '@headlessui/react'
 
 function ReminderDialogForm(props) {
-  const [color, setColor] = useState('')
-  const [city, setCity] = useState('')
-  const [message, setMessage] = useState('')
-  const [time, setTime] = useState('')
+  const [reminder, setReminder] = useState({
+    color: '',
+    city: '',
+    message: '',
+    time: '',
+  })
+
+  useEffect(() => {
+    if(props.reminder)
+      setReminder(props.reminder)
+  }, [props.reminder])
+
+  const handleInput = (elem) => {
+    const {name, value} = elem.target
+
+    setReminder({...reminder, [name]: value})
+  }
 
   return (
-      <Dialog open={props.isOpen} onClose={props.close}>
+      <Dialog open={true} onClose={props.close}>
         <Dialog.Panel>
           <Dialog.Title>Deactivate account</Dialog.Title>
 
           <Dialog.Description>
-            <input onChange={e => setMessage(e.target.value)} type="text" name="message" placeholder="message" /><br />
-            <input onChange={e => setCity(e.target.value)} type="text" name="city" placeholder="city" /><br />
-            <input onChange={e => setColor(e.target.value)} type="text" name="color" placeholder="color" /><br />
+            <input onChange={handleInput} value={reminder.message} type="text" name="message" placeholder="message" /><br />
+            <input onChange={handleInput} value={reminder.city} type="text" name="city" placeholder="city" /><br />
+            <input onChange={handleInput} value={reminder.color} type="text" name="color" placeholder="color" /><br />
 
             
-            <select name="time" value={time} onChange={e => setTime(e.target.value)}>
+            <select name="time" value={reminder.time} onChange={handleInput}>
               <option value="00:00">00:00</option>
               <option value="12:12">12:12</option>
               <option value="24:24">24:24</option>
             </select>
           </Dialog.Description>
 
-          <button onClick={() => props.submit({color, city, time, message})}>Save</button>
+          <button onClick={() => props.submit(reminder)}>Save</button>
         </Dialog.Panel>
       </Dialog>
   )
