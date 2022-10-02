@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import ReminderDialogForm from '../components/ReminderDialogForm.jsx'
 
@@ -18,7 +18,6 @@ function Calendar() {
   const saveReminder = (reminder) => {
     setReminderList([...reminders, {
       id: uuidv4(),
-      date: dateId,
       ...reminder,
     }])
 
@@ -50,7 +49,6 @@ function Calendar() {
 
       <div className="calendar">
         {weeks.map(w => {
-          // improve how dates are compared
           const messages = reminders.filter(({date}) => +date === +w.date)
 
           return (
@@ -71,6 +69,7 @@ function Calendar() {
 
       {Boolean(dateId) && 
         <ReminderDialogForm 
+          date={dateId}
           close={() => setDateId('')}
           submit={saveReminder}
         />
