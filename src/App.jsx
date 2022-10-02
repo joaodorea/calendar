@@ -1,10 +1,8 @@
-import Calendar from './modules/calendar/pages/Calendar.jsx'
+import Calendar from './modules/calendar/pages/CalendarPage.jsx'
 
 function App() {
   return (
-    <div>
-      <Calendar />
-    </div>
+    <Calendar />
   );
 }
 

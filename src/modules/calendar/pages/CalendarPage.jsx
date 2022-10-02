@@ -34,24 +34,29 @@ function Calendar() {
   }
 
   return (
-    <div>
+    <div className="calendar-page">
       <div>Calendar</div>
-      {weeks.map(w => {
-        // improve how dates are compared
-        const messages = reminders.filter(({date}) => +date === +w.date)
 
-        return (
-          <>
-            <span className="date-item" onClick={() => setDateId(w.date)}>
-              {w.day}
-              {messages.length ? messages.map(({message}) => 
-                <span className="date-item-reminder">{message}</span>)
-              : null}
+      <div className="calendar">
+        {weeks.map(w => {
+          // improve how dates are compared
+          const messages = reminders.filter(({date}) => +date === +w.date)
+
+          return (
+            <span className="date-item">
+              <div className="date-item-title" onClick={() => setDateId(w.date)}>
+                {w.day}
+              </div>
+
+              <div className="reminder-list">
+                {messages.length ? messages.map(({message}) => 
+                  <span className="date-item-reminder">{message}</span>)
+                : null}
+              </div>
             </span>
-            {w.weekDay === 6 && <br />}
-          </>
-        )
-      })}
+          )
+        })}
+      </div>
 
       <ReminderDialogForm 
         isOpen={dateId !== ''}
