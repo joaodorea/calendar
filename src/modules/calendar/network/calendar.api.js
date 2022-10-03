@@ -11,6 +11,5 @@ export const getCityWeatherInDate = async (city, date) => {
   const {lat, lon} = cityGeoResp[0]
   const weatherResp = await fetch(WEATHER_URL(lat, lon)).then(r => r.json())
 
-  console.log(weatherResp)
   return weatherResp.weather[0]
 }
