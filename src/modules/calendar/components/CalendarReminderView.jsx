@@ -3,7 +3,6 @@ import { Dialog } from '@headlessui/react'
 
 function ReminderDialogForm(props) {
   const [reminder] = useState(props.reminder)
-  console.log(reminder)
 
   return (
       <Dialog open={true} onClose={props.close}>
