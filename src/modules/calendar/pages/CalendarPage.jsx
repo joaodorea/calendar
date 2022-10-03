@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+
 import ReminderDialogForm from '../components/ReminderDialogForm.jsx'
+import { getCityWeatherInDate } from '../network/calendar.api.js'
 
 function Calendar() {
   let [reminders, setReminderList] = useState([])
@@ -15,7 +17,12 @@ function Calendar() {
   const diff = 0 - (new Date(2022, currentMonth, 1).getDay()) + 1
   const weeks = []
 
-  const saveReminder = (reminder) => {
+  const saveReminder = async (reminder) => {
+    const weather = await getWeatherReminder(reminder.city, reminder.date)
+
+    if(weather)
+      reminder.weather = weather.main
+
     setReminderList([...reminders, {
       id: uuidv4(),
       ...reminder,
@@ -24,7 +31,15 @@ function Calendar() {
     setDateId('')
   }
 
+  const getWeatherReminder = (date, city) => {
+    getCityWeatherInDate(date, city)
+  }
+
   const editReminder = (reminder) => {
+    const weather = getWeatherReminder(reminder.city, reminder.date)
+    if(weather)
+      reminder.weather = weather.main
+
     const reminderList = reminders.filter((r) => r.id !== reminder.id)
     reminderList.push(reminder)
 
@@ -48,11 +63,21 @@ function Calendar() {
       <div>Calendar</div>
 
       <div className="calendar">
+        <span className="calendar-header-item">Sunday</span>
+        <span className="calendar-header-item">Monday</span>
+        <span className="calendar-header-item">Tuesday</span>
+        <span className="calendar-header-item">Wednesday</span>
+        <span className="calendar-header-item">Thursday</span>
+        <span className="calendar-header-item">Friday</span>
+        <span className="calendar-header-item">Saturday</span>
+
         {weeks.map(w => {
           const messages = reminders.filter(({date}) => +date === +w.date)
+          const isHolidayClassName = w.weekDay === 0 || w.weekDay === 6 ? 'is-holiday' : ''
+          const isCurrentMonthClassName = w.isCurrentMonth ? '' : 'not-current-month'
 
           return (
-            <span className="date-item">
+            <span className={`date-item ${isHolidayClassName} ${isCurrentMonthClassName}`}>
               <div className="date-item-title" onClick={() => setDateId(w.date)}>
                 {w.day}
               </div>
