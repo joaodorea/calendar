@@ -79,7 +79,7 @@ function Calendar() {
     <div className="calendar-page">
       <div>Calendar</div>
 
-      <div className="calendar">
+      <div className="calendar" role="grid">
         <span className="calendar-header-item">Sunday</span>
         <span className="calendar-header-item">Monday</span>
         <span className="calendar-header-item">Tuesday</span>
@@ -94,7 +94,7 @@ function Calendar() {
           const isCurrentMonthClassName = w.isCurrentMonth ? '' : 'not-current-month'
 
           return (
-            <span className={`date-item ${isHolidayClassName} ${isCurrentMonthClassName}`}>
+            <span role="gridcell" key={w.date.getTime()} className={`date-item ${isHolidayClassName} ${isCurrentMonthClassName}`}>
               <div className="date-item-title" onClick={() => setDateId(w.date)}>
                 {w.day}
               </div>
@@ -106,9 +106,12 @@ function Calendar() {
 
                   return (
                     <span
+                      key={reminder.id}
+                      role="button"
                       style={backgroundStyle}
                       onClick={() => setViewingReminder(reminder)}
-                      className={`date-item-reminder ${isColoredReminder}`}>
+                      className={`date-item-reminder ${isColoredReminder}`}
+                    >
                         {reminder.time}, {reminder.message}
                     </span>
                   )
@@ -121,6 +124,7 @@ function Calendar() {
 
       {Boolean(dateId) && 
         <ReminderDialogForm 
+          title="Add new reminder"
           date={dateId}
           close={() => setDateId('')}
           submit={saveReminder}
@@ -129,6 +133,7 @@ function Calendar() {
 
       {Boolean(editingReminder) && 
         <ReminderDialogForm 
+          title="Edit reminder"
           close={() => setEditingReminder(null)}
           submit={editReminder}
           reminder={editingReminder}

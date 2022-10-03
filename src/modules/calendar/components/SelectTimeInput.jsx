@@ -8,7 +8,7 @@ function SelectTimeInput(props) {
     <div className="listbox-wrapper">
       <Listbox value={props.selectedTime} onChange={props.onChange}>
         <Listbox.Button as={Fragment}>
-          <input value={props.selectedTime} readOnly />
+          <input data-testid="time-select-input" id="time" value={props.selectedTime} readOnly />
         </Listbox.Button>
 
         <Listbox.Options>

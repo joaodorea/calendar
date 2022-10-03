@@ -50,23 +50,23 @@ function ReminderDialogForm(props) {
   return (
       <Dialog open={true} onClose={props.close}>
         <Dialog.Panel>
-          <Dialog.Title>Deactivate account</Dialog.Title>
+          <Dialog.Title>{ props.title }</Dialog.Title>
 
           <Dialog.Description>
             <form onSubmit={handleSubmit}>
               <div className="base-field">
-                <label>Date <span>(mm / dd / yyyy)</span></label>
-                <input onChange={handleDateInput} type="date" name="date" value={formatDateToInput(reminder.date)} required /><br />
+                <label htmlFor="date">Date <span>(mm / dd / yyyy)</span></label>
+                <input onChange={handleDateInput} id="date" type="date" name="date" value={formatDateToInput(reminder.date)} required /><br />
               </div>
 
               <div className="base-field">
-                <label>Time</label>
+                <label htmlFor="time">Time</label>
                 <SelectTimeInput onChange={handleTimeInput} selectedTime={reminder.time} />
               </div>
 
               <div className="base-field">
-                <label>City</label>
-                <input onChange={handleInput} value={reminder.city} type="text" name="city" placeholder="Eg. London" required /><br />
+                <label htmlFor="city">City</label>
+                <input id="city" aria-label="Select the city of the reminder" onChange={handleInput} value={reminder.city} type="text" name="city" placeholder="Eg. London" required /><br />
               </div>
 
               <div className="base-field">
@@ -75,19 +75,21 @@ function ReminderDialogForm(props) {
               </div>
 
               <div className="base-field">
-                <label>Message <span>(Max: 30 char.)</span></label>
+                <label htmlFor="message">Message <span>(Max: 30 char.)</span></label>
                 <textarea
                   onChange={handleInput}
                   value={reminder.message}
                   type="text"
                   name="message"
+                  id="message"
                   placeholder="message"
                   maxLength="30"
+                  aria-label="Type the message of your reminder"
                   required
                 /><br />
               </div>
               
-              <button type="submit">Save</button>
+              <button type="submit">Add Reminder</button>
             </form>
           </Dialog.Description>
         </Dialog.Panel>
