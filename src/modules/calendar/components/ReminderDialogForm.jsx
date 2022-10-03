@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Dialog } from '@headlessui/react'
 
+import SelectColorInput from './SelectColorInput.jsx'
+
 function ReminderDialogForm(props) {
   const [reminder, setReminder] = useState({
     date: null,
@@ -41,6 +43,10 @@ function ReminderDialogForm(props) {
     return false;
   }
 
+  const handleColorInput = (color) => {
+    setReminder({ ...reminder, color })
+  }
+
   return (
       <Dialog open={true} onClose={props.close}>
         <Dialog.Panel>
@@ -49,7 +55,7 @@ function ReminderDialogForm(props) {
           <Dialog.Description>
             <form onSubmit={handleSubmit}>
               <div className="base-field">
-                <label>Date</label>
+                <label>Date <span>(dd / mm / yyyy)</span></label>
                 <input onChange={handleDateInput} type="date" name="date" value={formatDateToInput(reminder.date)} required /><br />
               </div>
 
@@ -60,12 +66,12 @@ function ReminderDialogForm(props) {
 
               <div className="base-field">
                 <label>City</label>
-                <input onChange={handleInput} value={reminder.city} type="text" name="city" placeholder="city" required /><br />
+                <input onChange={handleInput} value={reminder.city} type="text" name="city" placeholder="Eg. London" required /><br />
               </div>
 
               <div className="base-field">
                 <label>Color</label>
-                <input onChange={handleInput} value={reminder.color} type="text" name="color" placeholder="color" /><br />
+                <SelectColorInput onChange={handleColorInput} selectedColor={reminder.color} />
               </div>
               
               <div className="base-field">

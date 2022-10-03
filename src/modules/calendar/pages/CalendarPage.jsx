@@ -83,9 +83,14 @@ function Calendar() {
               </div>
 
               <div className="reminder-list">
-                {Boolean(messages.length) ? messages.map((reminder) => 
-                  <span onClick={() => setEditingReminder(reminder)} className="date-item-reminder">{reminder.message}</span>)
-                : null}
+                {Boolean(messages.length) ? messages.map((reminder) => {
+                  const isColoredReminder = reminder.color ? 'reminder-item-colored' : ''
+                  const backgroundStyle = reminder.color ? {'backgroundColor': reminder.color} : {}
+
+                  return (
+                    <span style={backgroundStyle} onClick={() => setEditingReminder(reminder)} className={`date-item-reminder ${isColoredReminder}`}>{reminder.message}</span>
+                  )
+                }) : null}
               </div>
             </span>
           )

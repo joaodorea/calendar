@@ -153,6 +153,34 @@ button:hover {
   white-space: nowrap;
   text-align: left;
   z-index: 1;
+
+  border-radius: 4px;
+  font-size: .75rem;
+  padding: 0 4px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.reminder-item-colored {
+  color: var(--white);
+}
+
+.select-colors {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-gap: 0.5rem;
+}
+
+.color-item {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  transition: border-radius linear .1s;
+}
+
+.color-item.is-selected {
+  border-radius: 50%;
 }
 
 .modal, #headlessui-portal-root {
