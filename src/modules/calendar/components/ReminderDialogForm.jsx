@@ -55,7 +55,7 @@ function ReminderDialogForm(props) {
           <Dialog.Description>
             <form onSubmit={handleSubmit}>
               <div className="base-field">
-                <label>Date <span>(dd / mm / yyyy)</span></label>
+                <label>Date <span>(mm / dd / yyyy)</span></label>
                 <input onChange={handleDateInput} type="date" name="date" value={formatDateToInput(reminder.date)} required /><br />
               </div>
 
