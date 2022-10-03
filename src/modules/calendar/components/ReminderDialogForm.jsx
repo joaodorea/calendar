@@ -34,25 +34,52 @@ function ReminderDialogForm(props) {
     return date.toISOString().split('T')[0]
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    props.submit(reminder)
+
+    return false;
+  }
+
   return (
       <Dialog open={true} onClose={props.close}>
         <Dialog.Panel>
           <Dialog.Title>Deactivate account</Dialog.Title>
 
           <Dialog.Description>
-            <input onChange={handleDateInput} type="date" name="date" value={formatDateToInput(reminder.date)} /><br />
-            <input onChange={handleInput} value={reminder.message} type="text" name="message" placeholder="message" /><br />
-            <input onChange={handleInput} value={reminder.city} type="text" name="city" placeholder="city" /><br />
-            <input onChange={handleInput} value={reminder.color} type="text" name="color" placeholder="color" /><br />
-            
-            <select name="time" value={reminder.time} onChange={handleInput}>
-              <option value="00:00">00:00</option>
-              <option value="12:12">12:12</option>
-              <option value="24:24">24:24</option>
-            </select>
-          </Dialog.Description>
+            <form onSubmit={handleSubmit}>
+              <div className="base-field">
+                <label>Date</label>
+                <input onChange={handleDateInput} type="date" name="date" value={formatDateToInput(reminder.date)} required /><br />
+              </div>
 
-          <button onClick={() => props.submit(reminder)}>Save</button>
+              <div className="base-field">
+                <label>Message <span>(Max: 30 char.)</span></label>
+                <input onChange={handleInput} value={reminder.message} type="text" name="message" placeholder="message" required /><br />
+              </div>
+
+              <div className="base-field">
+                <label>City</label>
+                <input onChange={handleInput} value={reminder.city} type="text" name="city" placeholder="city" required /><br />
+              </div>
+
+              <div className="base-field">
+                <label>Color</label>
+                <input onChange={handleInput} value={reminder.color} type="text" name="color" placeholder="color" /><br />
+              </div>
+              
+              <div className="base-field">
+                <label>Time</label>
+                <select name="time" value={reminder.time} onChange={handleInput}>
+                  <option value="00:00">00:00</option>
+                  <option value="12:12">12:12</option>
+                  <option value="24:24">24:24</option>
+                </select>
+              </div>
+
+              <button type="submit">Save</button>
+            </form>
+          </Dialog.Description>
         </Dialog.Panel>
       </Dialog>
   )
