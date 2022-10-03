@@ -23,10 +23,10 @@ function Calendar() {
     if(weather)
       reminder.weather = weather.main
 
-    setReminderList([...reminders, {
+    setReminderList(sortReminderByTime([...reminders, {
       id: uuidv4(),
       ...reminder,
-    }])
+    }]))
 
     setDateId('')
   }
@@ -43,7 +43,7 @@ function Calendar() {
     const reminderList = reminders.filter((r) => r.id !== reminder.id)
     reminderList.push(reminder)
 
-    setReminderList(reminderList)
+    setReminderList(sortReminderByTime(reminderList))
     setEditingReminder(null)
   }
 
@@ -55,6 +55,16 @@ function Calendar() {
       day: currentDate.getDate(),
       weekDay: currentDate.getDay(),
       isCurrentMonth: currentDate.getMonth() === currentMonth,
+    })
+  }
+
+  const sortReminderByTime = (reminders) => {
+    return [...reminders].sort((a, b) => {
+      const parsedTimeA = parseFloat(a.time.replace(':', '.'))
+      const parsedTimeB = parseFloat(b.time.replace(':', '.'))
+
+      if(parsedTimeA > parsedTimeB) return 1
+      else return -1
     })
   }
 
@@ -88,7 +98,12 @@ function Calendar() {
                   const backgroundStyle = reminder.color ? {'backgroundColor': reminder.color} : {}
 
                   return (
-                    <span style={backgroundStyle} onClick={() => setEditingReminder(reminder)} className={`date-item-reminder ${isColoredReminder}`}>{reminder.message}</span>
+                    <span
+                      style={backgroundStyle}
+                      onClick={() => setEditingReminder(reminder)}
+                      className={`date-item-reminder ${isColoredReminder}`}>
+                        {reminder.time}, {reminder.message}
+                    </span>
                   )
                 }) : null}
               </div>
