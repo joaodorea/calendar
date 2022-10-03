@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Dialog } from '@headlessui/react'
 
 import SelectColorInput from './SelectColorInput.jsx'
+import SelectTimeInput from './SelectTimeInput.jsx'
 
 function ReminderDialogForm(props) {
   const [reminder, setReminder] = useState({
@@ -9,7 +10,7 @@ function ReminderDialogForm(props) {
     color: '',
     city: '',
     message: '',
-    time: '',
+    time: '00:00',
   })
 
   useEffect(() => {
@@ -43,9 +44,8 @@ function ReminderDialogForm(props) {
     return false;
   }
 
-  const handleColorInput = (color) => {
-    setReminder({ ...reminder, color })
-  }
+  const handleColorInput = (color) => setReminder({ ...reminder, color })
+  const handleTimeInput = time => setReminder({ ...reminder, time })
 
   return (
       <Dialog open={true} onClose={props.close}>
@@ -76,11 +76,7 @@ function ReminderDialogForm(props) {
               
               <div className="base-field">
                 <label>Time</label>
-                <select name="time" value={reminder.time} onChange={handleInput}>
-                  <option value="00:00">00:00</option>
-                  <option value="12:12">12:12</option>
-                  <option value="24:24">24:24</option>
-                </select>
+                <SelectTimeInput onChange={handleTimeInput} selectedTime={reminder.time} />
               </div>
 
               <button type="submit">Save</button>

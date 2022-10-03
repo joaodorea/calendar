@@ -85,6 +85,11 @@ button:hover {
   background-color: var(--dark-blue);
 }
 
+li {
+  list-style: none;
+  padding: 0;
+}
+
 .base-field {
   margin-bottom: 1rem;
 }
@@ -201,4 +206,30 @@ button:hover {
 #headlessui-portal-root > div {
   background-color: white;
   padding: 20px;
+}
+
+.listbox-wrapper {
+  position: relative;
+}
+
+[id^=headlessui-listbox-options] {
+  background-color: var(--white);
+  width: 100%;
+  position: absolute;
+  overflow-y: scroll;
+  max-height: 10rem;
+  border-radius: 4px;
+  margin-top: 4px;
+  padding: .25rem;
+  border: 1px solid #b9bfc6;
+}
+
+[id^=headlessui-listbox-options] li {
+  margin-bottom: .25rem;
+  padding: .25rem;
+  cursor: pointer;
+}
+
+[id^=headlessui-listbox-options] li:hover {
+  background-color: var(--light-gray);
 }
