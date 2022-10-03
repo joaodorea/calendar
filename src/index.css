@@ -57,7 +57,7 @@ label span {
   font-weight: 400;
 }
 
-input {
+input, textarea {
   height: 2.5rem;
   font-size: 1rem;
   padding: .5rem .75rem;
@@ -68,6 +68,7 @@ input {
   width: 100%;
   margin: 0;
   border: 1px solid #b9bfc6;
+  font-family: inherit;
 }
 
 button {
@@ -206,6 +207,7 @@ li {
 #headlessui-portal-root > div {
   background-color: white;
   padding: 20px;
+  min-width: 300px;
 }
 
 .listbox-wrapper {

@@ -2,11 +2,13 @@ import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
 import ReminderDialogForm from '../components/ReminderDialogForm.jsx'
+import ReminderView from '../components/CalendarReminderView.jsx'
 import { getCityWeatherInDate } from '../network/calendar.api.js'
 
 function Calendar() {
   let [reminders, setReminderList] = useState([])
   let [editingReminder, setEditingReminder] = useState(null)
+  let [viewingReminder, setViewingReminder] = useState(null)
   let [dateId, setDateId] = useState('')
 
   const currentMonth = new Date().getMonth()
@@ -68,6 +70,11 @@ function Calendar() {
     })
   }
 
+  const handleEditAction = (reminder) => {
+    setViewingReminder(null)
+    setEditingReminder(reminder)
+  }
+
   return (
     <div className="calendar-page">
       <div>Calendar</div>
@@ -100,7 +107,7 @@ function Calendar() {
                   return (
                     <span
                       style={backgroundStyle}
-                      onClick={() => setEditingReminder(reminder)}
+                      onClick={() => setViewingReminder(reminder)}
                       className={`date-item-reminder ${isColoredReminder}`}>
                         {reminder.time}, {reminder.message}
                     </span>
@@ -125,6 +132,14 @@ function Calendar() {
           close={() => setEditingReminder(null)}
           submit={editReminder}
           reminder={editingReminder}
+        />
+      }
+
+      {Boolean(viewingReminder) &&
+        <ReminderView
+          reminder={viewingReminder}
+          close={() => setViewingReminder(null)}
+          editReminder={handleEditAction}
         />
       }
     </div>

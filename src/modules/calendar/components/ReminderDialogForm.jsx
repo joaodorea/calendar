@@ -60,8 +60,8 @@ function ReminderDialogForm(props) {
               </div>
 
               <div className="base-field">
-                <label>Message <span>(Max: 30 char.)</span></label>
-                <input onChange={handleInput} value={reminder.message} type="text" name="message" placeholder="message" required /><br />
+                <label>Time</label>
+                <SelectTimeInput onChange={handleTimeInput} selectedTime={reminder.time} />
               </div>
 
               <div className="base-field">
@@ -73,12 +73,20 @@ function ReminderDialogForm(props) {
                 <label>Color</label>
                 <SelectColorInput onChange={handleColorInput} selectedColor={reminder.color} />
               </div>
-              
-              <div className="base-field">
-                <label>Time</label>
-                <SelectTimeInput onChange={handleTimeInput} selectedTime={reminder.time} />
-              </div>
 
+              <div className="base-field">
+                <label>Message <span>(Max: 30 char.)</span></label>
+                <textarea
+                  onChange={handleInput}
+                  value={reminder.message}
+                  type="text"
+                  name="message"
+                  placeholder="message"
+                  maxLength="30"
+                  required
+                /><br />
+              </div>
+              
               <button type="submit">Save</button>
             </form>
           </Dialog.Description>
