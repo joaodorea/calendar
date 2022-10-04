@@ -9,15 +9,15 @@
 }
 
 .date-item-reminder {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   text-align: left;
   z-index: 1;
-
   border-radius: 4px;
   font-size: 0.75rem;
   padding: 0 4px;
   font-weight: 500;
   margin-bottom: 4px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

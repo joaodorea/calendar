@@ -4,5 +4,9 @@
   font-weight: bold;
   color: var(--white);
   text-align: center;
-  padding: 3px 0;
+  padding: 0.25rem;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
