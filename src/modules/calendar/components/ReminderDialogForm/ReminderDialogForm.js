@@ -1,4 +1,5 @@
 import { useState, useEffect, Fragment } from "react";
+import PropTypes from "prop-types";
 import { Dialog } from "@headlessui/react";
 
 import SelectColorInput from "../SelectColorInput";
@@ -126,6 +127,20 @@ const ReminderDialogForm = ({ close, date, reminder, submit, title }) => {
       </Dialog.Panel>
     </Dialog>
   );
+};
+
+ReminderDialogForm.propTypes = {
+  close: PropTypes.func.isRequired,
+  submit: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  date: PropTypes.string,
+  reminder: PropTypes.shape({
+    date: null,
+    color: PropTypes.string,
+    city: PropTypes.string,
+    message: PropTypes.string,
+    time: PropTypes.string,
+  }),
 };
 
 export default ReminderDialogForm;

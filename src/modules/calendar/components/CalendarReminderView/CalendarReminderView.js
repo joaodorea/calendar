@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import { Dialog } from "@headlessui/react";
+import PropTypes from "prop-types";
 
 import { formatDateToView } from "../../utils/helpers";
 import "./CalendarReminderView.css";
@@ -32,5 +33,17 @@ const CalendarReminderView = ({ close, editReminder, reminder }) => (
     </Dialog.Panel>
   </Dialog>
 );
+
+CalendarReminderView.propTypes = {
+  close: PropTypes.func.isRequired,
+  editReminder: PropTypes.func.isRequired,
+  reminder: PropTypes.shape({
+    date: null,
+    color: PropTypes.string,
+    city: PropTypes.string,
+    message: PropTypes.string,
+    time: PropTypes.string,
+  }),
+};
 
 export default CalendarReminderView;

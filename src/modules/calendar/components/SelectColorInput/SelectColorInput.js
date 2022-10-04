@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import "./SelectColorInput.css";
 import { availableColors } from "../../utils/constants";
 
@@ -17,5 +19,10 @@ const SelectColorInput = ({ onChange, selectedColor }) => (
     })}
   </div>
 );
+
+SelectColorInput.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  selectedColor: PropTypes.string.isRequired,
+};
 
 export default SelectColorInput;

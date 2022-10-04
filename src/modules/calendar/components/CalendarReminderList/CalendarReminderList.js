@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import "./CalendarReminderList.css";
 
 const CalendarReminderList = ({ reminders, selectReminder }) => (
@@ -26,5 +28,19 @@ const CalendarReminderList = ({ reminders, selectReminder }) => (
       : null}
   </div>
 );
+
+CalendarReminderList.propTypes = {
+  close: PropTypes.func.isRequired,
+  editReminder: PropTypes.func.isRequired,
+  reminder: PropTypes.arrayOf(
+    PropTypes.shape({
+      date: null,
+      color: PropTypes.string,
+      city: PropTypes.string,
+      message: PropTypes.string,
+      time: PropTypes.string,
+    })
+  ),
+};
 
 export default CalendarReminderList;
