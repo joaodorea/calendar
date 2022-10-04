@@ -3,6 +3,9 @@ import { v4 as uuidv4 } from 'uuid'
 
 import ReminderDialogForm from '../components/ReminderDialogForm.jsx'
 import ReminderView from '../components/CalendarReminderView.jsx'
+import CalendarHeader from '../components/CalendarHeader.jsx'
+import ReminderList from '../components/CalendarReminderList.jsx'
+import { getDaysInMonth, sortReminderByTime } from '../utils/helpers.js'
 import { getCityWeatherInDate } from '../network/calendar.api.js'
 
 function Calendar() {
@@ -10,17 +13,10 @@ function Calendar() {
   let [editingReminder, setEditingReminder] = useState(null)
   let [viewingReminder, setViewingReminder] = useState(null)
   let [dateId, setDateId] = useState('')
-
-  const currentMonth = new Date().getMonth()
-  const totalDaysInMonth = new Date(2022, currentMonth + 1, 0).getDate()
-  const remainingDays = 6 - new Date(2022, currentMonth, totalDaysInMonth).getDay()
-  const totalDays = totalDaysInMonth + remainingDays
-
-  const diff = 0 - (new Date(2022, currentMonth, 1).getDay()) + 1
-  const weeks = []
+  const days = getDaysInMonth()
 
   const saveReminder = async (reminder) => {
-    const weather = await getWeatherReminder(reminder.city, reminder.date)
+    const weather = await getCityWeatherInDate(reminder.city, reminder.date)
 
     if(weather)
       reminder.weather = weather.main
@@ -33,12 +29,8 @@ function Calendar() {
     setDateId('')
   }
 
-  const getWeatherReminder = (date, city) => {
-    getCityWeatherInDate(date, city)
-  }
-
-  const editReminder = (reminder) => {
-    const weather = getWeatherReminder(reminder.city, reminder.date)
+  const editReminder = async (reminder) => {
+    const weather = await getCityWeatherInDate(reminder.city, reminder.date)
     if(weather)
       reminder.weather = weather.main
 
@@ -49,26 +41,6 @@ function Calendar() {
     setEditingReminder(null)
   }
 
-  for(let i = diff; i <= totalDays; i ++) {
-    const currentDate = new Date(2022, currentMonth, i)
-
-    weeks.push({
-      date: currentDate,
-      day: currentDate.getDate(),
-      weekDay: currentDate.getDay(),
-      isCurrentMonth: currentDate.getMonth() === currentMonth,
-    })
-  }
-
-  const sortReminderByTime = (reminders) => {
-    return [...reminders].sort((a, b) => {
-      const parsedTimeA = parseFloat(a.time.replace(':', '.'))
-      const parsedTimeB = parseFloat(b.time.replace(':', '.'))
-
-      if(parsedTimeA > parsedTimeB) return 1
-      else return -1
-    })
-  }
 
   const handleEditAction = (reminder) => {
     setViewingReminder(null)
@@ -80,43 +52,20 @@ function Calendar() {
       <div>Calendar</div>
 
       <div className="calendar" role="grid">
-        <span className="calendar-header-item">Sunday</span>
-        <span className="calendar-header-item">Monday</span>
-        <span className="calendar-header-item">Tuesday</span>
-        <span className="calendar-header-item">Wednesday</span>
-        <span className="calendar-header-item">Thursday</span>
-        <span className="calendar-header-item">Friday</span>
-        <span className="calendar-header-item">Saturday</span>
+        <CalendarHeader />
 
-        {weeks.map(w => {
-          const messages = reminders.filter(({date}) => +date === +w.date)
-          const isHolidayClassName = w.weekDay === 0 || w.weekDay === 6 ? 'is-holiday' : ''
-          const isCurrentMonthClassName = w.isCurrentMonth ? '' : 'not-current-month'
+        {days.map(day => {
+          const reminderList = reminders.filter(({date}) => +date === +day.date)
+          const isHolidayClassName = day.weekDay === 0 || day.weekDay === 6 ? 'is-holiday' : ''
+          const isCurrentMonthClassName = day.isCurrentMonth ? '' : 'not-current-month'
 
           return (
-            <span role="gridcell" key={w.date.getTime()} className={`date-item ${isHolidayClassName} ${isCurrentMonthClassName}`}>
-              <div className="date-item-title" onClick={() => setDateId(w.date)}>
-                {w.day}
+            <span role="gridcell" key={day.date.getTime()} className={`date-item ${isHolidayClassName} ${isCurrentMonthClassName}`}>
+              <div className="date-item-title" onClick={() => setDateId(day.date)}>
+                {day.day}
               </div>
 
-              <div className="reminder-list">
-                {Boolean(messages.length) ? messages.map((reminder) => {
-                  const isColoredReminder = reminder.color ? 'reminder-item-colored' : ''
-                  const backgroundStyle = reminder.color ? {'backgroundColor': reminder.color} : {}
-
-                  return (
-                    <span
-                      key={reminder.id}
-                      role="button"
-                      style={backgroundStyle}
-                      onClick={() => setViewingReminder(reminder)}
-                      className={`date-item-reminder ${isColoredReminder}`}
-                    >
-                        {reminder.time}, {reminder.message}
-                    </span>
-                  )
-                }) : null}
-              </div>
+              <ReminderList selectReminder={setViewingReminder} reminders={reminderList} />
             </span>
           )
         })}

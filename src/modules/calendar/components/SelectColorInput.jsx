@@ -20,7 +20,7 @@ function SelectColorInput(props) {
         const isColorSelectedClass = color === props.selectedColor ? 'is-selected' : ''
 
         return (
-          <span onClick={() => props.onChange(color)} style={{ 'backgroundColor': color }} className={`color-item ${isColorSelectedClass}`}></span>
+          <span key={color} onClick={() => props.onChange(color)} style={{ 'backgroundColor': color }} className={`color-item ${isColorSelectedClass}`}></span>
         )
       })}
     </div>
