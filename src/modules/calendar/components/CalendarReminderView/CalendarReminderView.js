@@ -22,6 +22,11 @@ const CalendarReminderView = ({ close, editReminder, reminder }) => (
         </p>
         <p className="reminder-view-item">{reminder.message}</p>
         <p className="reminder-view-item">{reminder.city}</p>
+        {Boolean(reminder.weather) && (
+          <p className="reminder-view-item">
+            Weather Forecast: <b>{reminder.weather}</b>
+          </p>
+        )}
       </Dialog.Description>
 
       <button
