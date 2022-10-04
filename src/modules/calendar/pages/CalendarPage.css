@@ -1,0 +1,48 @@
+.calendar-page {
+  height: 100%;
+}
+
+.calendar-page-title {
+  margin-bottom: 1rem;
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+.calendar {
+  display: grid;
+  height: 100%;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.date-item {
+  display: inline-flex;
+  position: relative;
+  flex-direction: column;
+  height: 100px;
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid var(--gray);
+  overflow: hidden;
+
+  margin-right: -1px;
+  margin-bottom: -1px;
+}
+
+.date-item-title {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+  font-weight: bold;
+  top: 0;
+  left: 0;
+}
+
+.date-item.is-holiday .date-item-title {
+  background-color: var(--light-gray);
+  color: var(--primary);
+}
+
+.date-item.not-current-month .date-item-title {
+  color: var(--gray);
+}

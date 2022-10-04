@@ -1,4 +1,3 @@
-/* ADD SCSS */
 :root {
   --blue: #2f74b5;
   --dark-blue: #1f4e7a;
@@ -20,14 +19,36 @@ body {
   min-height: 100vh;
   font-weight: 400;
   line-height: 1.25rem;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-blockquote, body, dd, dl, dt, fieldset, figure, h1, h2, h3, h4, h5, h6, hr, html, iframe, legend, li, ol, p, pre, textarea, ul {
+blockquote,
+body,
+dd,
+dl,
+dt,
+fieldset,
+figure,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+html,
+iframe,
+legend,
+li,
+ol,
+p,
+pre,
+textarea,
+ul {
   margin: 0;
   padding: 0;
   font-size: 100%;
@@ -38,30 +59,33 @@ blockquote, body, dd, dl, dt, fieldset, figure, h1, h2, h3, h4, h5, h6, hr, html
   min-height: 100vh;
 }
 
-*, ::after, ::before {
+*,
+::after,
+::before {
   box-sizing: border-box;
 }
 
 label {
   display: block;
-  margin-bottom: .25rem;
+  margin-bottom: 0.25rem;
   height: 1.25rem;
   line-height: 1.25rem;
-  font-size: .875rem;
+  font-size: 0.875rem;
   font-weight: 600;
 }
 
 label span {
   color: gray;
-  font-size: .75rem;
+  font-size: 0.75rem;
   font-weight: 400;
 }
 
-input, textarea {
+input,
+textarea {
   height: 2.5rem;
   font-size: 1rem;
-  padding: .5rem .75rem;
-  border-radius: .25rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.25rem;
   background-color: #fff;
   box-shadow: none;
   max-width: 100%;
@@ -78,7 +102,7 @@ button {
   border-radius: 4px;
   height: 2.5rem;
   color: var(--white);
-  padding: 0 .875rem;
+  padding: 0 0.875rem;
   cursor: pointer;
 }
 
@@ -95,101 +119,7 @@ li {
   margin-bottom: 1rem;
 }
 
-.calendar-page {
-  height: 100%;
-}
-
-.calendar {
-  display: grid;
-  height: 100%;
-  grid-template-columns: repeat(7, 1fr);
-}
-
-.calendar-header-item {
-  font-size: 1.1rem;
-  background-color: var(--primary);
-  font-weight: bold;
-  color: var(--white);
-  text-align: center;
-  padding: 3px 0;
-}
-
-.date-item {
-  display: inline-flex;
-  position: relative;
-  flex-direction: column;
-  height: 100px;
-  cursor: pointer;
-  padding: 10px;
-  border: 1px solid var(--gray);
-  overflow: hidden;
-
-  margin-right: -1px;
-  margin-bottom: -1px;
-}
-
-.date-item-title {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  padding: 5px;
-  font-weight: bold;
-  top: 0;
-  left: 0;
-}
-
-.date-item.is-holiday .date-item-title {
-  background-color: var(--light-gray);
-  color: var(--primary);
-}
-
-.date-item.not-current-month .date-item-title {
-  color: var(--gray);
-}
-
-.reminder-list {
-  display: flex;
-  flex-direction: column;
-  margin-top: 20px;
-}
-
-.date-item-reminder {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  text-align: left;
-  z-index: 1;
-
-  border-radius: 4px;
-  font-size: .75rem;
-  padding: 0 4px;
-  font-weight: 500;
-  margin-bottom: 4px;
-}
-
-.reminder-item-colored {
-  color: var(--white);
-}
-
-.select-colors {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-gap: 0.5rem;
-}
-
-.color-item {
-  display: inline-block;
-  width: 2rem;
-  height: 2rem;
-  cursor: pointer;
-  transition: border-radius linear .1s;
-}
-
-.color-item.is-selected {
-  border-radius: 50%;
-}
-
-.modal, #headlessui-portal-root {
+#headlessui-portal-root {
   display: flex;
   position: fixed;
   top: 0;
@@ -201,7 +131,7 @@ li {
   justify-content: center;
   overflow: hidden;
   z-index: 140;
-  background-color: rgba(0,0,0,.25);
+  background-color: rgba(0, 0, 0, 0.25);
 }
 
 #headlessui-portal-root > div {
@@ -210,11 +140,7 @@ li {
   min-width: 300px;
 }
 
-.listbox-wrapper {
-  position: relative;
-}
-
-[id^=headlessui-listbox-options] {
+[id^="headlessui-listbox-options"] {
   background-color: var(--white);
   width: 100%;
   position: absolute;
@@ -222,16 +148,16 @@ li {
   max-height: 10rem;
   border-radius: 4px;
   margin-top: 4px;
-  padding: .25rem;
+  padding: 0.25rem;
   border: 1px solid #b9bfc6;
 }
 
-[id^=headlessui-listbox-options] li {
-  margin-bottom: .25rem;
-  padding: .25rem;
+[id^="headlessui-listbox-options"] li {
+  margin-bottom: 0.25rem;
+  padding: 0.25rem;
   cursor: pointer;
 }
 
-[id^=headlessui-listbox-options] li:hover {
+[id^="headlessui-listbox-options"] li:hover {
   background-color: var(--light-gray);
 }

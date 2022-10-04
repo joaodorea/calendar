@@ -1,0 +1,8 @@
+.calendar-header-item {
+  font-size: 1.1rem;
+  background-color: var(--primary);
+  font-weight: bold;
+  color: var(--white);
+  text-align: center;
+  padding: 3px 0;
+}

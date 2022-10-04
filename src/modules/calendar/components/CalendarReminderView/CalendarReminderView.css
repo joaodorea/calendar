@@ -1,0 +1,20 @@
+.calendar-view-colored-dot {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dialog-title {
+  font-weight: bold;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.dialog-button-edit-reminder {
+  margin-top: 1rem;
+}
+
+.reminder-view-item {
+  margin-top: 0.5rem;
+}

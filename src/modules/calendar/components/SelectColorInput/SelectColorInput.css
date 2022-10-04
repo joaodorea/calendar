@@ -1,0 +1,17 @@
+.select-colors {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-gap: 0.5rem;
+}
+
+.color-item {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  transition: border-radius linear 0.1s;
+}
+
+.color-item.is-selected {
+  border-radius: 50%;
+}
