@@ -1,0 +1,43 @@
+{
+  "[markdown]": {
+    "editor.wordWrap": "wordWrapColumn",
+    "editor.wordWrapColumn": 80,
+    "files.trimTrailingWhitespace": false
+  },
+  "css.validate": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.markdownlint": true,
+    "source.fixAll.stylelint": true
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "editor.trimAutoWhitespace": true,
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "vue": "html",
+    "vue-html": "html"
+  },
+  "emmet.triggerExpansionOnTab": true,
+  "eslint.format.enable": true,
+  "eslint.validate": ["javascript", "javascriptreact", "html"],
+  "files.associations": {
+    ".markdownlintrc": "jsonc"
+  },
+  "files.eol": "\n",
+  "files.exclude": {
+    "**/*.log": true,
+    "**/*.log*": true,
+    "**/coverage": true
+  },
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "html.format.enable": false,
+  "javascript.format.enable": false,
+  "json.format.enable": false,
+  "prettier.disableLanguages": [],
+  "scss.validate": false
+}
