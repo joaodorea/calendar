@@ -30,3 +30,13 @@ Your app is ready to be deployed!
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
 ### `npm run eject`
+
+## Things to be improved
+
+- Add api keys to .env file
+- Improve and add more tests
+- Improve form validation
+- Create a core module to put share components (input fields)
+- Add a lib to handle dates
+- Add scss
+- Use some icons to improve UI and UX (close button)
